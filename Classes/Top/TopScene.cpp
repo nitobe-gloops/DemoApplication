@@ -1,4 +1,5 @@
 #include "TopScene.h"
+#include "AppPlatform.h"
 #include "Home/HomeScene.h"
 #include "platform/CCCommon.h"
 
@@ -50,6 +51,9 @@ bool TopScene::init()
     pLabel->setString(LocalizedString("App_Comment", "Hello"));
     this->addChild(pLabel, 1);
 
+    // アプリバージョンを取得する（OS依存処理）
+    const char* version = AppPlatform::getAppVersion();
+    CCLog("DEMO::TopScene#init() >> version = %s" , version);
 
     makeCloseBtn();
 

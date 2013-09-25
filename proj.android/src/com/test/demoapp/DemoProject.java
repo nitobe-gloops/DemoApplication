@@ -32,10 +32,11 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 
 public class DemoProject extends Cocos2dxActivity{
 	public static String _appVersion = "";
-	private static Context _context = DemoProject.getContext();
+	private static Context _context = null;
 	
 
     protected void onCreate(Bundle savedInstanceState){
@@ -46,6 +47,12 @@ public class DemoProject extends Cocos2dxActivity{
     	Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
     	// DemoProject should create stencil buffer
     	glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
+    	
+    	//アプリ起動中はバックライトを消さない
+    	getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    	
+    	_context = this;
+//    	DeviceEnvironment.setContext(this);
     	
     	return glSurfaceView;
     }
