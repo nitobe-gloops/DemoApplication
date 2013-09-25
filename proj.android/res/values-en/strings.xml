@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DemoProject</string>
+
+    <string name="test_logcat">This message is being output, check.</string>
+</resources>
