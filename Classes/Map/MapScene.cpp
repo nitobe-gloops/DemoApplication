@@ -1,5 +1,5 @@
 #include "MapScene.h"
-#include "Game/GameScene.h"
+#include "Game/DemoScene.h"
 
 USING_NS_CC;
 
@@ -112,7 +112,7 @@ void MapScene::menuCloseCallback(CCObject* pSender)
 void MapScene::buttonOnClickCallBack(CCObject* pSender)
 {
 	CCLog("DEMO::MapScene#buttonOnClickCallBack >> ボタン押下：画面遷移を実装予定");
-	CCScene* nextScene = GameScene::scene();
+	CCScene* nextScene = DemoScene::scene();
 //	CCDirector* pDirector = CCDirector::sharedDirector();
 //	pDirector->runWithScene(nextScene);
 

@@ -6,7 +6,8 @@
  */
 
 #include "DemoScene.h"
-#include "SimpleAudioEngine.h"
+#include "Result/ResultScene.h"
+#include "SimpleAudioEngine.h"		// BGMを鳴らすために必要 ※Windows上でエラー表記されるが、ビルド可能
 
 using namespace cocos2d;
 using namespace std;
@@ -16,6 +17,7 @@ const int DemoScene::_MyDroid = 99;
 const int DemoScene::_DataCnt = 4;
 
 /**
+ * ###### ルール ######
  * Droidくんを操作し、任意の点に存在するナニカを見つける
  * ・Droidくんは画面中央に表示
  * ・ナニカは4点（暫定）のどこか1箇所に存在する
@@ -23,7 +25,7 @@ const int DemoScene::_DataCnt = 4;
  * ・移動した位置が任意の点と同じ場合判定を行う
  * ・ナニカを見つけるとDoroidくんの外見が変わる
  * ・ナニカ以外はハズレの表示を行う
- *
+ * #####################
  *
  * */
 CCScene* DemoScene::scene() {
@@ -40,6 +42,8 @@ bool DemoScene::init() {
 	if(!CCLayer::init() ){
 		return false;
 	}
+	// 背景を設定する
+	setBackGroundSprite();
 
 	_isMoving = false;
 	_isGameEnd = false;
@@ -55,15 +59,13 @@ bool DemoScene::init() {
 	// 端末の物理キーの反応を有効にする（Android端末限定？）
 	this->setKeypadEnabled(true);
 
-	// 背景を設定する
-	makeBackground();
 	// 終了ボタン
 	makeCloseBtn();
 	// ナニカは4点を表示する
 	makeDestination();
 	// ドロイドくんを表示する
 	makeDroid();
-
+	// リトライボタン
 	makeRetryButton();
 
 	// 画像に動きをつける
@@ -71,7 +73,7 @@ bool DemoScene::init() {
 	// COCOS2d-xの標準エフェクトを表示
 //	makePerticleFire();
 
-	// BGMの設定 SimpleAudioEngine.hのincludeでエラーが出ているがBGMは確認できる
+	// TODO BGMの設定 SimpleAudioEngine.hのincludeでエラーが出ているがBGMは確認できる
 //	SimpleAudioEngine::sharedEngine()->playEffect("neko_bgm_m1_3_piano.m4a");
 //	CocosDenshion::SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(0.2);	// 0（消音）~1（最大）
 //	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("neko_bgm_m2.m4a", true);
@@ -93,20 +95,24 @@ int DemoScene::getRandomNumber(){
 	return index;
 }
 
+
 /**
- * 背景を設定する
- * リソースはResourcesに格納する
+ * 背景画像を設定する
  * */
-void DemoScene::makeBackground() {
-	CCLog("背景を設定します");
-	// 画面サイズを取得
+void DemoScene::setBackGroundSprite() {
+	// 画面サイズ取得
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
-	CCLog("winSize = %.2f／%.2f", winSize.width, winSize.height);	// 画面サイズを知りたい
-	// 背景を生成
-	CCSprite* pBG = CCSprite::create("background02.png");		// 画像を指定
-	pBG->setPosition(ccp(winSize.width * 0.5, winSize.height * 0.5));	// 背景表示位置の指定
-	this -> addChild(pBG);
+	// plistを読み込み
+	CCSpriteFrameCache* frameCacheBG = CCSpriteFrameCache::sharedSpriteFrameCache();
+	frameCacheBG->addSpriteFramesWithFile("SpriteSheets/DummyBackground02.plist");		// plistのパスを指定
+
+	CCLOG("DEMO::GameScene#setBackGroundSprite() >> plist Load!");
+
+	//
+	CCSprite* sprite = CCSprite::createWithSpriteFrameName("back_Ex03.png");		// plist内のkey(ファイル名)を指定
+	sprite->setPosition(ccp(winSize.width * 0.5, winSize.height * 0.5));
+	this->addChild(sprite);
 }
 
 
@@ -267,8 +273,12 @@ void DemoScene::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent) {
 		spriteDroid->runAction(CCSequence::create(droidAction, actionDone, NULL));
 
 		_isMoving = true;
-	}else {
+	}else if(_isMoving == true){
+		// ドロイドくん移動中はタップ操作を無効にする
 		CCLog("タップ無効中");
+	}else {
+		// ゲーム終了の場合に、終了／リトライ以外をタップした
+		switchScene();
 	}
 }
 
@@ -375,3 +385,18 @@ void DemoScene::onClickRetryButton(CCNode* node) {
 	CCDirector::sharedDirector()->replaceScene(gameScene);
 }
 
+
+/**
+ * Sceneを切り替える
+ * */
+void DemoScene::switchScene()
+{
+	CCLog("DEMO::DemoScene#switchScene() >> ゲーム終了時に画面をタップしたので次画面へ遷移");
+	CCScene* nextScene = ResultScene::scene();
+	CCDirector* pDirector = CCDirector::sharedDirector();
+	pDirector->runWithScene(nextScene);
+
+	// 遷移に特殊な画面効果をつける場合
+//	CCTransitionScene *transitionScen = CCTransitionSplitCols::create( 3.0, nextScene );
+//	CCDirector::sharedDirector()->replaceScene( transitionScen );
+}

@@ -25,7 +25,7 @@ private:
 	bool _isGameEnd;
 	int _targetNumber;
 
-	void makeBackground();
+	void setBackGroundSprite();
 	void makeCloseBtn();
 	void makeDroid();
 	void makeDestination();
@@ -41,6 +41,8 @@ private:
 
 	void makeSpriteAction();
 	void makePerticleFire();
+
+	void switchScene();
 
 public:
 	virtual bool init();
