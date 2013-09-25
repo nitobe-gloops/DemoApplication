@@ -10,6 +10,8 @@ private:
     void onClickStartButton(CCObject* pSender);
 	void menuCloseCallback(CCObject* pSender);
 
+	void setBackGroundSprite();
+
 	const char* LocalizedString(const char* searchKey, const char* comment);
 public:
     virtual bool init();  

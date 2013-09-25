@@ -1,5 +1,5 @@
 #include "TopScene.h"
-#include "DemoScene.h"
+#include "Home/HomeScene.h"
 #include "platform/CCCommon.h"
 
 USING_NS_CC;
@@ -20,7 +20,9 @@ bool TopScene::init()
     {
         return false;
     }
-    
+    // 背景画像を設定する
+    setBackGroundSprite();
+
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
@@ -39,8 +41,8 @@ bool TopScene::init()
 
 
     // テキストラベル
-
     CCLabelTTF* pLabel = CCLabelTTF::create("Press the Jelly Bean", "Arial", 24);
+    pLabel->setColor(ccc3((GLubyte)0,(GLubyte)0,(GLubyte)0));
     pLabel->setPosition(ccp(origin.x + visibleSize.width/2,
                             origin.y + visibleSize.height - pLabel->getContentSize().height));
 
@@ -55,12 +57,36 @@ bool TopScene::init()
 }
 
 
+/**
+ * 背景画像を設定する
+ * */
+void TopScene::setBackGroundSprite() {
+	// 画面サイズ取得
+	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+
+	// plistを読み込み
+	CCSpriteFrameCache* frameCacheBG = CCSpriteFrameCache::sharedSpriteFrameCache();
+	frameCacheBG->addSpriteFramesWithFile("SpriteSheets/DummyBackground02.plist");		// plistのパスを指定
+
+	CCLOG("DEMO::HomeScene#setBackGroundSprite() >> plist Load!");
+
+	//
+	CCSprite* sprite = CCSprite::createWithSpriteFrameName("back_Ex02.png");		// plist内のkey(ファイル名)を指定
+	sprite->setPosition(ccp(winSize.width * 0.5, winSize.height * 0.5));
+	this->addChild(sprite);
+}
+
+
 void TopScene::onClickStartButton(CCObject* pSender)
 {
-	CCScene* nextScene = DemoScene::scene();
-	CCTransitionScene *transitionScen = CCTransitionSplitCols::create( 3.0, nextScene );
+	CCLog("DEMO::TopScene#buttonOnClickCallBack() >> ボタン押下");
+	CCDirector* pDirector = CCDirector::sharedDirector();
+	CCScene* nextScene = HomeScene::scene();
+	pDirector->runWithScene(nextScene);
 
-	CCDirector::sharedDirector()->replaceScene( transitionScen );
+	// 遷移に特殊な画面効果をつける場合
+//	CCTransitionScene *transitionScen = CCTransitionSplitCols::create( 3.0, nextScene );
+//	CCDirector::sharedDirector()->replaceScene( transitionScen );
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
    // NOP

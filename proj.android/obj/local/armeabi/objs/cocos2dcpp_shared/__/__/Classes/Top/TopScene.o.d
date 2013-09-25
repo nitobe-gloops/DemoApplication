@@ -203,7 +203,7 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/Top/TopScene.o: \
  /cygdrive/c/cocos2d-x-2.1.4/projects/DemoProject/proj.android/../../../cocos2dx/support/data_support/uthash.h \
  /cygdrive/c/cocos2d-x-2.1.4/projects/DemoProject/proj.android/../../../cocos2dx/support/component/CCComponent.h \
  /cygdrive/c/cocos2d-x-2.1.4/projects/DemoProject/proj.android/../../../cocos2dx/support/component/CCComponentContainer.h \
- jni/../../Classes/Home/HomeScene.h jni/../../Classes/AppPlatform.h
+ jni/../../Classes/Home/HomeScene.h
 
 jni/../../Classes/Top/TopScene.h:
 
@@ -614,5 +614,3 @@ jni/../../Classes/Top/TopScene.h:
 /cygdrive/c/cocos2d-x-2.1.4/projects/DemoProject/proj.android/../../../cocos2dx/support/component/CCComponentContainer.h:
 
 jni/../../Classes/Home/HomeScene.h:
-
-jni/../../Classes/AppPlatform.h:

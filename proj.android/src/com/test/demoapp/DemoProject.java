@@ -26,10 +26,18 @@ package com.test.demoapp;
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.util.Log;
 
 public class DemoProject extends Cocos2dxActivity{
+	public static String _appVersion = "";
+	private static Context _context = DemoProject.getContext();
 	
+
     protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);	
 	}
@@ -44,5 +52,25 @@ public class DemoProject extends Cocos2dxActivity{
 
     static {
         System.loadLibrary("cocos2dcpp");
-    }     
+    }   
+    
+    
+	/**
+	 * 
+	 * */
+	public static String getAppVersionInJava() {
+		// androidアプリのバージョンをC++に返却する
+		Log.i("DEMO::DemoProject#getAppVersionInJava()", "call");
+
+		PackageManager pkgMngr = getContext().getPackageManager();
+		try {
+			PackageInfo pkgInfo = pkgMngr.getPackageInfo(_context.getPackageName(), PackageManager.GET_META_DATA);
+			_appVersion = pkgInfo.versionName;
+		}catch (NameNotFoundException e) {
+			Log.e("DEMO::TestOsDependent#onCreate()", "" + e.getStackTrace());
+		}
+		
+		return _appVersion;
+	}
+
 }

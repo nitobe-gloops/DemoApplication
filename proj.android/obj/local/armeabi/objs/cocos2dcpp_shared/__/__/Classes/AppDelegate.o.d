@@ -203,7 +203,7 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/AppDelegate.o: \
  /cygdrive/c/cocos2d-x-2.1.4/projects/DemoProject/proj.android/../../../cocos2dx/support/data_support/uthash.h \
  /cygdrive/c/cocos2d-x-2.1.4/projects/DemoProject/proj.android/../../../cocos2dx/support/component/CCComponent.h \
  /cygdrive/c/cocos2d-x-2.1.4/projects/DemoProject/proj.android/../../../cocos2dx/support/component/CCComponentContainer.h \
- jni/../../Classes/TopScene.h
+ jni/../../Classes/Top/TopScene.h
 
 jni/../../Classes/AppDelegate.h:
 
@@ -613,4 +613,4 @@ jni/../../Classes/AppDelegate.h:
 
 /cygdrive/c/cocos2d-x-2.1.4/projects/DemoProject/proj.android/../../../cocos2dx/support/component/CCComponentContainer.h:
 
-jni/../../Classes/TopScene.h:
+jni/../../Classes/Top/TopScene.h:
