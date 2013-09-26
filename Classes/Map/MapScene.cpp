@@ -1,4 +1,5 @@
 #include "MapScene.h"
+#include "AppPlatform.h"
 #include "Game/DemoScene.h"
 
 USING_NS_CC;
@@ -90,7 +91,7 @@ void MapScene::setBackGroundSprite() {
 	CCSpriteFrameCache* frameCacheBG = CCSpriteFrameCache::sharedSpriteFrameCache();
 	frameCacheBG->addSpriteFramesWithFile("SpriteSheets/DummyBackground02.plist");		// plistのパスを指定
 
-	CCLOG("DEMO::MapScene#setBackGroundSprite() >> plist Load!");
+	AppPlatform::outputDebugLog("MapScene", "setBackGroundSprite", "plist Load!");
 
 	//
 	CCSprite* sprite = CCSprite::createWithSpriteFrameName("back_Ex02.png");		// plist内のkey(ファイル名)を指定
@@ -111,7 +112,8 @@ void MapScene::menuCloseCallback(CCObject* pSender)
 
 void MapScene::buttonOnClickCallBack(CCObject* pSender)
 {
-	CCLog("DEMO::MapScene#buttonOnClickCallBack >> ボタン押下：画面遷移を実装予定");
+	AppPlatform::outputDebugLog("MapScene", "buttonOnClickCallBack", "call");
+
 	CCScene* nextScene = DemoScene::scene();
 //	CCDirector* pDirector = CCDirector::sharedDirector();
 //	pDirector->runWithScene(nextScene);

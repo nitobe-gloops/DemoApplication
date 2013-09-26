@@ -1,4 +1,5 @@
 #include "CatalogueScene.h"
+#include "AppPlatform.h"
 
 USING_NS_CC;
 
@@ -73,7 +74,7 @@ void CatalogueScene::menuCloseCallback(CCObject* pSender)
 
 void CatalogueScene::buttonOnClickCallBack(CCObject* pSender)
 {
-	CCLog("CatalogueScene::buttonOnClickCallBack >> ボタン押下：画面遷移を実装予定");
+	AppPlatform::outputDebugLog("CatalogueScene", "buttonOnClickCallBack", "call");
 //	// TODO:次の画面のScene
 //	CCScene* nextScene = CatalogueScene::scene();
 //	// 画面遷移のアニメーション

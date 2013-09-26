@@ -1,4 +1,5 @@
 #include "FriendScene.h"
+#include "AppPlatform.h"
 
 USING_NS_CC;
 
@@ -73,7 +74,7 @@ void FriendScene::menuCloseCallback(CCObject* pSender)
 
 void FriendScene::buttonOnClickCallBack(CCObject* pSender)
 {
-	CCLog("FriendScene::buttonOnClickCallBack >> ボタン押下：画面遷移を実装予定");
+	AppPlatform::outputDebugLog("FriendScene", "setBackGroundSprite", "call");
 //	// TODO:次の画面のScene
 //	CCScene* nextScene = FriendScene::scene();
 //	// 画面遷移のアニメーション

@@ -2,11 +2,15 @@
 #include "AppPlatform.h"
 #include "Home/HomeScene.h"
 #include "platform/CCCommon.h"
+#include <string>
 
 USING_NS_CC;
+using namespace std;
+
 
 CCScene* TopScene::scene()
 {
+	AppPlatform::outputVerboseLog("TopScene", "scene", "call");
     CCScene *scene = CCScene::create();
     TopScene *layer = TopScene::create();
     scene->addChild(layer);
@@ -17,6 +21,7 @@ CCScene* TopScene::scene()
 // on "init" you need to initialize your instance
 bool TopScene::init()
 {
+	AppPlatform::outputVerboseLog("TopScene", "init", "call");
     if ( !CCLayer::init() )
     {
         return false;
@@ -53,7 +58,10 @@ bool TopScene::init()
 
     // アプリバージョンを取得する（OS依存処理）
     const char* version = AppPlatform::getAppVersion();
-    CCLog("DEMO::TopScene#init() >> version = %s" , version);
+	AppPlatform::outputInfoLog("TopScene", "init",  (string)"version = " + version);
+
+    // Log出力する
+//    AppPlatform::outputVerboseLog("TopScene", "init", "call");
 
     makeCloseBtn();
 
@@ -72,8 +80,7 @@ void TopScene::setBackGroundSprite() {
 	CCSpriteFrameCache* frameCacheBG = CCSpriteFrameCache::sharedSpriteFrameCache();
 	frameCacheBG->addSpriteFramesWithFile("SpriteSheets/DummyBackground02.plist");		// plistのパスを指定
 
-	CCLOG("DEMO::HomeScene#setBackGroundSprite() >> plist Load!");
-
+	AppPlatform::outputDebugLog("TopScene", "setBackGroundSprite", "plist Load!");
 	//
 	CCSprite* sprite = CCSprite::createWithSpriteFrameName("back_Ex02.png");		// plist内のkey(ファイル名)を指定
 	sprite->setPosition(ccp(winSize.width * 0.5, winSize.height * 0.5));
@@ -83,7 +90,7 @@ void TopScene::setBackGroundSprite() {
 
 void TopScene::onClickStartButton(CCObject* pSender)
 {
-	CCLog("DEMO::TopScene#buttonOnClickCallBack() >> ボタン押下");
+	AppPlatform::outputVerboseLog("TopScene", "onClickStartButton", "call");
 	CCDirector* pDirector = CCDirector::sharedDirector();
 	CCScene* nextScene = HomeScene::scene();
 	pDirector->runWithScene(nextScene);

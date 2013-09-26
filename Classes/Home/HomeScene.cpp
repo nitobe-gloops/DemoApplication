@@ -1,4 +1,5 @@
 #include "HomeScene.h"
+#include "AppPlatform.h"
 #include "Map/MapScene.h"
 
 USING_NS_CC;
@@ -76,7 +77,7 @@ void HomeScene::setBackGroundSprite() {
 	CCSpriteFrameCache* frameCacheBG = CCSpriteFrameCache::sharedSpriteFrameCache();
 	frameCacheBG->addSpriteFramesWithFile("SpriteSheets/DummyBackground02.plist");		// plistのパスを指定
 
-	CCLOG("DEMO::HomeScene#setBackGroundSprite() >> plist Load!");
+	AppPlatform::outputDebugLog("HomeScene", "setBackGroundSprite", "plist Load!");
 
 	//
 	CCSprite* sprite = CCSprite::createWithSpriteFrameName("back_Ex03.png");		// plist内のkey(ファイル名)を指定
@@ -97,7 +98,7 @@ void HomeScene::menuCloseCallback(CCObject* pSender)
 
 void HomeScene::buttonOnClickCallBack(CCObject* pSender)
 {
-	CCLog("DEMO::HomeScene#buttonOnClickCallBack() >> ボタン押下");
+	AppPlatform::outputDebugLog("HomeScene", "buttonOnClickCallBack", "call");
 	CCScene* nextScene = MapScene::scene();
 	CCDirector* pDirector = CCDirector::sharedDirector();
 	pDirector->runWithScene(nextScene);

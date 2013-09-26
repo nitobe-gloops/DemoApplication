@@ -34,13 +34,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
 
+import com.test.util.Logger;
+
 public class DemoProject extends Cocos2dxActivity{
+	
+	private static String TAG = "DEMO:";	// タグにしたい文字列+":"
+
 	public static String _appVersion = "";
 	private static Context _context = null;
-	
 
     protected void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);	
+		super.onCreate(savedInstanceState);
+
+		Logger.startLogger(this, TAG);
 	}
 
     public Cocos2dxGLSurfaceView onCreateView() {
@@ -62,12 +68,13 @@ public class DemoProject extends Cocos2dxActivity{
     }   
     
     
-	/**
+// .............................................................................
+    /**
 	 * 
 	 * */
 	public static String getAppVersionInJava() {
 		// androidアプリのバージョンをC++に返却する
-		Log.i("DEMO::DemoProject#getAppVersionInJava()", "call");
+		Logger.i(_context, "getAppVersionInJava", "call");
 
 		PackageManager pkgMngr = getContext().getPackageManager();
 		try {
@@ -80,4 +87,50 @@ public class DemoProject extends Cocos2dxActivity{
 		return _appVersion;
 	}
 
+	
+// .............................................................................
+	/**
+	 * Log出力<br>
+	 * verbose
+	 * */
+	public static void verboseLog(String className, String methodName, String message){
+		Logger.v(className, methodName, message);
+		
+	}
+
+	/**
+	 * Log出力<br>
+	 * Debug
+	 * */
+	public static void debugLog(String className, String methodName, String message){
+		Logger.d(className, methodName, message);
+		
+	}
+
+	/**
+	 * Log出力<br>
+	 * Info
+	 * */
+	public static void infoLog(String className, String methodName, String message){
+		Logger.i(className, methodName, message);
+		
+	}
+
+	/**
+	 * Log出力<br>
+	 * Warning
+	 * */
+	public static void warningLog(String className, String methodName, String message){
+		Logger.w(className, methodName, message);
+		
+	}
+
+	/**
+	 * Log出力<br>
+	 * Error
+	 * */
+	public static void errorLog(String className, String methodName, String message){
+		Logger.e(className, methodName, message);
+		
+	}
 }

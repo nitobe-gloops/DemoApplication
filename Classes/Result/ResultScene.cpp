@@ -1,4 +1,5 @@
 #include "ResultScene.h"
+#include "AppPlatform.h"
 #include "Home/HomeScene.h"
 
 USING_NS_CC;
@@ -74,7 +75,7 @@ void ResultScene::menuCloseCallback(CCObject* pSender)
 
 void ResultScene::buttonOnClickCallBack(CCObject* pSender)
 {
-	CCLog("DEMO::ResultScene#buttonOnClickCallBack() >> ボタン押下：画面遷移を実装予定");
+	AppPlatform::outputDebugLog("ResultScene", "setBackGroundSprite", "call");
 	CCScene* nextScene = HomeScene::scene();
 	CCDirector* pDirector = CCDirector::sharedDirector();
 	pDirector->runWithScene(nextScene);

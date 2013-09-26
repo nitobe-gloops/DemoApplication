@@ -6,6 +6,7 @@
  */
 
 #include "DemoScene.h"
+#include "AppPlatform.h"
 #include "Result/ResultScene.h"
 #include "SimpleAudioEngine.h"		// BGMを鳴らすために必要 ※Windows上でエラー表記されるが、ビルド可能
 
@@ -37,7 +38,6 @@ CCScene* DemoScene::scene() {
 }
 
 bool DemoScene::init() {
-	CCLOGINFO("アプリケーション開始");
 
 	if(!CCLayer::init() ){
 		return false;
@@ -91,7 +91,7 @@ int DemoScene::getRandomNumber(){
 
 	// ランダムで値を取得する
 	int index = rand() % (_DataCnt);
-	CCLog("Targetは %d です", index);
+	AppPlatform::outputDebugLog("DemoScene", "getRandomNumber", "Target = " + index);
 	return index;
 }
 
@@ -107,8 +107,7 @@ void DemoScene::setBackGroundSprite() {
 	CCSpriteFrameCache* frameCacheBG = CCSpriteFrameCache::sharedSpriteFrameCache();
 	frameCacheBG->addSpriteFramesWithFile("SpriteSheets/DummyBackground02.plist");		// plistのパスを指定
 
-	CCLOG("DEMO::GameScene#setBackGroundSprite() >> plist Load!");
-
+	AppPlatform::outputDebugLog("DemoScene", "setBackGroundSprite", "plist Load!");
 	//
 	CCSprite* sprite = CCSprite::createWithSpriteFrameName("back_Ex03.png");		// plist内のkey(ファイル名)を指定
 	sprite->setPosition(ccp(winSize.width * 0.5, winSize.height * 0.5));
@@ -158,7 +157,7 @@ void DemoScene::menuCloseCallback(CCObject* pSender)
  *
  * */
 void DemoScene::makeDroid() {
-	CCLog("Droidくんを読み込みます");
+	AppPlatform::outputDebugLog("DemoScene", "makeDroid", "Droidくんを読み込みます");
 	// 画面サイズ取得
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
@@ -188,7 +187,7 @@ void DemoScene::makeDroid() {
  *
  * */
 void DemoScene::makeDestination() {
-	CCLog("目的地を読み込みます");
+	AppPlatform::outputDebugLog("DemoScene", "makeDroid", "目的地を読み込みます");
 	// 画面サイズ取得
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
@@ -275,7 +274,7 @@ void DemoScene::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent) {
 		_isMoving = true;
 	}else if(_isMoving == true){
 		// ドロイドくん移動中はタップ操作を無効にする
-		CCLog("タップ無効中");
+		AppPlatform::outputWarningLog("DemoScene", "ccTouchEnded", "タップ無効中");
 	}else {
 		// ゲーム終了の場合に、終了／リトライ以外をタップした
 		switchScene();
@@ -296,7 +295,7 @@ void DemoScene::keyBackClicked() {
  * かなり無理やりだが、一応の衝突判定を行っている
  * */
 void DemoScene::spriteMoveActionFinished(CCNode* sender) {
-	CCLog("アニメーション終了");
+	AppPlatform::outputDebugLog("DemoScene", "spriteMoveActionFinished", "アニメーション終了");
 	// 呼び出し元のSprite取得
 	CCSprite* sprite = (CCSprite*)sender;
 	CCRect spriteRect = sprite->boundingBox();	// 位置とサイズを取得する
@@ -321,7 +320,7 @@ void DemoScene::spriteMoveActionFinished(CCNode* sender) {
 		CCRect dummyRect(array->getControlPointAtIndex(n).x, array->getControlPointAtIndex(n).y, targetRect.size.width, targetRect.size.height);
 
 		if(targetRect.intersectsRect(spriteRect)) {
-			CCLog("正解");
+			AppPlatform::outputDebugLog("DemoScene", "spriteMoveActionFinished", "正解");
 			sprite->stopAllActions();	// アニメーションの停止
 
 //			sprite->setTexture(CCTextureCache::sharedTextureCache()->addImage("emo_im_money_mouth.png"));
@@ -338,7 +337,8 @@ void DemoScene::spriteMoveActionFinished(CCNode* sender) {
 
 //		}else if(targetRect.containsPoint(array->getControlPointAtIndex(n))){
 		}else if(dummyRect.intersectsRect(spriteRect)){
-			CCLog("ハズレ");
+			AppPlatform::outputDebugLog("DemoScene", "spriteMoveActionFinished", "ハズレ");
+
 			sprite->stopAllActions();	// アニメーションの停止
 
 //			sprite->setTexture(CCTextureCache::sharedTextureCache()->addImage("emo_im_crying.png"));
@@ -391,7 +391,8 @@ void DemoScene::onClickRetryButton(CCNode* node) {
  * */
 void DemoScene::switchScene()
 {
-	CCLog("DEMO::DemoScene#switchScene() >> ゲーム終了時に画面をタップしたので次画面へ遷移");
+	AppPlatform::outputDebugLog("DemoScene", "switchScene", "ゲーム終了時に画面をタップしたので次画面へ遷移");
+
 	CCScene* nextScene = ResultScene::scene();
 	CCDirector* pDirector = CCDirector::sharedDirector();
 	pDirector->runWithScene(nextScene);

@@ -1,4 +1,5 @@
 #include "ShopScene.h"
+#include "AppPlatform.h"
 
 USING_NS_CC;
 
@@ -73,7 +74,7 @@ void ShopScene::menuCloseCallback(CCObject* pSender)
 
 void ShopScene::buttonOnClickCallBack(CCObject* pSender)
 {
-	CCLog("ShopScene::buttonOnClickCallBack >> ボタン押下：画面遷移を実装予定");
+	AppPlatform::outputDebugLog("ShopScene", "setBackGroundSprite", "call");
 //	// TODO:次の画面のScene
 //	CCScene* nextScene = ShopScene::scene();
 //	// 画面遷移のアニメーション
